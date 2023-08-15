@@ -1,19 +1,21 @@
 const router = require('express').Router()
 const path = require('path')
 const { writeFileSync, readFileSync } = require('fs')
-const pets = require('../data/pets.json')
 const dataPath = path.join(__dirname, '..', 'data', 'pets.json')
 const { generateId } = require('../utils/generateId')
+const readAndParseFile = require('../utils/readAndParseFile')
 
 console.log('dataPath', dataPath)
 
 // API Routes
 router.get('/all-pets', (req, res) => {
+  const pets = readAndParseFile(dataPath)
   res.json(pets)
 })
 
 // ?name=Ivy Query Parameter
 router.get('/search-pets', (req, res) => {
+  const pets = readAndParseFile(dataPath)
   const searchedName = req.query.name
   const results = pets.filter(pet => {
     const formattedSearchedName = searchedName.toLowerCase().trim()
@@ -36,8 +38,7 @@ router.post('/create-pet', async (req, res) => {
   }
 
   // read and parse the file contens
-  const content = readFileSync(dataPath, 'utf-8')
-  const pets = JSON.parse(content)
+  const pets = readAndParseFile(dataPath)
 
   console.log(pets)
 
