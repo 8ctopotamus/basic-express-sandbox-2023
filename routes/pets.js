@@ -31,8 +31,6 @@ router.get('/pet/:id', (req, res) => {
 })
 
 router.post('/create-pet', async (req, res) => {
-  console.log(req.body)
-
   if (!req.body || !req.body.name || !req.body.age || !req.body.type) {
     return res.status(400).json('We need a name, age, and type')
   }
@@ -40,6 +38,8 @@ router.post('/create-pet', async (req, res) => {
   // read and parse the file contens
   const content = await readFile(dataPath, 'utf-8')
   const pets = JSON.parse(content)
+
+  console.log(pets)
 
   // add new data to the array
   const newPet = {
