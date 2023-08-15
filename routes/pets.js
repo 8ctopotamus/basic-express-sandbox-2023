@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const path = require('path')
-const { readFile, writeFile } = require('fs/promises')
+const { writeFileSync, readFileSync } = require('fs')
 const pets = require('../data/pets.json')
 const dataPath = path.join(__dirname, '..', 'data', 'pets.json')
 const { generateId } = require('../utils/generateId')
@@ -36,7 +36,7 @@ router.post('/create-pet', async (req, res) => {
   }
 
   // read and parse the file contens
-  const content = await readFile(dataPath, 'utf-8')
+  const content = readFileSync(dataPath, 'utf-8')
   const pets = JSON.parse(content)
 
   console.log(pets)
@@ -50,7 +50,7 @@ router.post('/create-pet', async (req, res) => {
   pets.push(newPet)
   
   // save file
-  await writeFile(dataPath, JSON.stringify(pets, null, 2))
+  writeFileSync(dataPath, JSON.stringify(pets, null, 2))
 
   res.status(201).json(newPet)
 })
