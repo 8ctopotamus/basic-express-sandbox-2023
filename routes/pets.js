@@ -5,6 +5,8 @@ const pets = require('../data/pets.json')
 const dataPath = path.join(__dirname, '..', 'data', 'pets.json')
 const { generateId } = require('../utils/generateId')
 
+console.log('dataPath', dataPath)
+
 // API Routes
 router.get('/all-pets', (req, res) => {
   res.json(pets)
@@ -29,6 +31,7 @@ router.get('/pet/:id', (req, res) => {
 })
 
 router.post('/create-pet', async (req, res) => {
+  console.log(req.body)
 
   if (!req.body || !req.body.name || !req.body.age || !req.body.type) {
     return res.status(400).json('We need a name, age, and type')
