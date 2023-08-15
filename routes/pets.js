@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const path = require('path')
 const { readFile, writeFile } = require('fs/promises')
-const pets = require('./data/pets.json')
-const dataPath = path.join(__dirname, 'data', 'pets.json')
-const { generateId } = require('./utils/generateId')
+const pets = require('../data/pets.json')
+const dataPath = path.join(__dirname, '..', 'data', 'pets.json')
+const { generateId } = require('../utils/generateId')
 
 // API Routes
 router.get('/all-pets', (req, res) => {
